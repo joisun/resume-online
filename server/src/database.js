@@ -1,5 +1,6 @@
 let mysql = require('mysql2')
 
+console.log('process.env.DB_HOST>>>>>',process.env.DB_HOST)
 exports.base = (sql, data, callback) => {
     let connection = mysql.createConnection({
         host: process.env.DB_HOST,

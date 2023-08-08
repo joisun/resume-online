@@ -18,6 +18,7 @@ exports.get = async (req, res) => {
     let sql_params = [];
     await database.base(sql, sql_params, (result) => {
         let response = JSON.parse(JSON.stringify(result));
+        if(!response.length) res.send({})
         res.send(response[0])
     })
 }
