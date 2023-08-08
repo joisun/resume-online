@@ -28,4 +28,4 @@ EXPOSE 4000
 
 
 # 启动应用
-CMD ["pm2-runtime", "start", "ecosystem.config.js","tail -f"]
+CMD ["pm2-runtime", "start", "ecosystem.config.js","pm2 log > /dev/stdout"]
