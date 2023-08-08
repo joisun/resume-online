@@ -9,7 +9,7 @@
         }
       },
     "scripts": {
-        "dev": "cross-env  NODE_ENV=development node src/app.js"
+        "dev": "node src/app.js"
     },
     "repository": {
         "type": "git",

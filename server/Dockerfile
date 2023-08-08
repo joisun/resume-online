@@ -17,8 +17,11 @@ RUN npm install
 
 # 设置环境变量
 ENV NODE_ENV=production
-RUN ls
-RUN pwd
+ENV DB_HOST=mysql-db
+ENV DB_PORT=3392
+ENV DB_USER=root
+ENV DB_PASSWORD=123456
+ENV DB_NAME=online_resume
 
 
 EXPOSE 4000
