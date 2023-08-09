@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+// import { Editor, Viewer } from '@bytemd/react'
 import {MdPreview,MdCatalog } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
-
+import '@/styles/github-heading.scss'
 const scrollElement = document.documentElement;
 const text = ref('');
 const state = reactive({
   text: '',
-  theme: 'github'
+  theme: 'githubHeadling'
 });
 
 
 const onGetCatalog = (list) => {
-  console.log('list',list)
 };
 
 
@@ -92,14 +92,14 @@ fetch('/api/get')
     </nav>
   </div>
   <main
-    class="bg-white container mx-auto p-5 lg:p-20 lg:w-3/5 h-full mb-48 shadow-xl"
+    class="bg-white container mx-auto p-2 lg:p-10 lg:w-3/5 h-full mb-48 shadow-xl"
   >
-    <MdPreview id="printMe" @onGetCatalog="onGetCatalog" :previewTheme="state.theme" v-model="text" />
-    <MdCatalog editorId='printMe' :scrollElement="scrollElement"/>
+    <MdCatalog class="fixed top-0 mt-28 hidden 2xl:block left-0 bg-white w-80" editorId='printMe' :scrollElement="scrollElement"/>
+    <MdPreview class="md-preview" editorId='printMe' id="printMe" @onGetCatalog="onGetCatalog" :previewTheme="state.theme" v-model="text" />
   </main>
 </template>
 
-<style>
+<style lang="scss" scoped>
 .icon:hover,
 .link-button:hover {
   color: rgb(81, 81, 255);
@@ -121,5 +121,9 @@ fetch('/api/get')
 }
 #mobile-lookup:hover img {
   height: 100%;
+}
+.md-preview :deep(.md-editor-preview-wrapper){
+  padding: 4rem;
+  
 }
 </style>

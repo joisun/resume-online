@@ -16,6 +16,7 @@
     "md-editor-v3": "^4.2.2",
     "notiwind": "^1.2.6",
     "pinia": "^2.0.17",
+    "sass": "^1.64.2",
     "uninstall": "^0.0.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.3",

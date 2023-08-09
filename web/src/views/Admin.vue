@@ -12,8 +12,8 @@
       type="password"
     />
   </div>
-  <div class="about w-full h-full" v-if="!hidden">
-    <md-editor class="h-full" v-model="text" @onSave="handleSave" >
+  <div class="about w-full h-screen border border-red-700" v-if="!hidden">
+    <md-editor class="!h-full" v-model="text" @onSave="handleSave" >
    
     </md-editor>
   </div>
