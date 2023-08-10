@@ -96,3 +96,13 @@
 
 
 
+## Troubles shooting
+
+如果你自行修改了前端代码， 但是再线上服务器重新执行 `docker-compose down`, `docker-compose up -d` ， 但是前端没有刷新，可以在 根目录下执行一下命令 :
+
+```bash
+npm run docker:rebuild
+```
+
+> 无需再次执行 docker-compose up
+

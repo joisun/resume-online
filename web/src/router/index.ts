@@ -4,7 +4,7 @@ import NotFoundPage from '../views/404.vue'
 
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory("/"),
   // history: createWebHashHistory(import.meta.env.VITE_BASE_PATH as string),
   routes: [
     {
