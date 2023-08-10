@@ -6,9 +6,9 @@ import {MdPreview,MdCatalog } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
 import '@/styles/github-heading.scss'
 import { notify } from 'notiwind';
-const { VITE_PASSWD,VITE_PASSWD_INPUT_LABEL, VITE_SUCCESS_TITLE, VITE_SUCCESS_CONTENT, VITE_ERROR_TITLE, VITE_ERROR_CONTENT} = import.meta.env
+const { VITE_PASSWD,VITE_PASSWD_INPUT_LABEL, VITE_SUCCESS_TITLE, VITE_SUCCESS_CONTENT, VITE_ERROR_TITLE, VITE_ERROR_CONTENT,VITE_PASSINPUTPAGE_BG} = import.meta.env
 // 指定 背景的纹理
-const background = 'food'
+const background = VITE_PASSINPUTPAGE_BG || 'circuit-board'
 
 const scrollElement = document.documentElement;
 const state = reactive({
@@ -27,7 +27,7 @@ const handleEnter = () => {
         title: VITE_SUCCESS_TITLE || '成功',
         text: VITE_SUCCESS_CONTENT || '密码正确!',
       },
-      500,
+      2000,
     );
   }else{
     console.log("trigger")
