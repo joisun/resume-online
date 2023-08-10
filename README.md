@@ -1,4 +1,4 @@
-# online-resume-vue3
+# resume-online
 
 一个超简单的在线 markdown 静态页面渲染，用来放放简历啦 (移动端已适配)。
 
