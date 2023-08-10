@@ -25,7 +25,18 @@ let text = ref('');
 let hidden = ref(true);
 let passwd = ref('');
 const handleEnter = () => {
-  if (passwd.value.trim() === import.meta.env.VITE_PASSWD) {
+  if(!import.meta.env.VITE_ADMIN_PASSWD){
+    notify(
+      {
+        group: 'error',
+        title: '编辑页面密码不可缺省',
+        text: '检查你的环境变量中的 VITE_ADMIN_PASSWD 字段是否有设定',
+      },
+      2000,
+    );
+    return
+  }
+  if (passwd.value.trim() === import.meta.env.VITE_ADMIN_PASSWD) {
     hidden.value = false;
     notify(
       {
