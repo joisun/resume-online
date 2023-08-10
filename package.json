@@ -1,0 +1,11 @@
+{
+  "name": "resume-online",
+  "version": "1.0.0",
+  "description": "一个超简单的在线 markdown 静态页面渲染，用来放放简历啦 (移动端已适配)。",
+  "main": "index.js",
+  "scripts": {
+    "docker:rebuild": "docker-compose down;docker rm resume-web;docker rmi resume-online_resume-web;docker builder prune -f;docker-compose up -d"
+  },
+  "author": "",
+  "license": "ISC"
+}
