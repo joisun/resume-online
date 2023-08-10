@@ -7,7 +7,7 @@ import { RouterLink, RouterView } from 'vue-router';
     <RouterView />
     <NotificationGroup group="foo">
       <div
-        class="fixed inset-0 flex items-start justify-end px-2 py-3 pointer-events-none"
+        class="fixed z-10 inset-0 flex items-start justify-end px-2 py-3 pointer-events-none"
       >
         <div class="w-full max-w-sm">
           <Notification
@@ -51,7 +51,7 @@ import { RouterLink, RouterView } from 'vue-router';
         </div>
       </div>
     </NotificationGroup>
-    <NotificationGroup group="err">
+    <NotificationGroup group="error">
       <div
         class="fixed inset-0 flex items-start justify-end px-2 py-3 pointer-events-none"
       >
