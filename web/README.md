@@ -16,7 +16,14 @@
 ## How to use
 - step1:  fork 这个项目
 
-- step2:  按需 在 `/web/.env` 中定义你的环境变量， 支持以下环境变量：
+- step2:  先在 `/web/index.html`中将 title 该成你自己需要的 title
+
+  ```html
+  <!-- 这里 -->
+  <title>Change here to yours</title>
+  ```
+
+  然后，按需 在 `/web/.env` 中定义你的环境变量， 支持以下环境变量：
 
   | 变量字段                  | 描述                                                         | 是否可缺省 | 默认值            |
   | ------------------------- | ------------------------------------------------------------ | :--------: | ----------------- |
@@ -61,6 +68,8 @@
 
 - step4: 登陆你的服务器, 然后找个地方 把 代码 clone 下来
 
+  > 服务器 `git clone` 可能很慢， 建议先同不到 Gitee, 然后从 Gitee 中 clone (记得设定为开源仓库哦)
+
 - step5: cd 到根目录， 也就是  `docker-compose.yml` 这个文件所在目录， 然后执行：
 
   > ```bash
@@ -68,16 +77,22 @@
   > ```
   >
   > ```bash
+  > # 第一次执行需要等久一些，输出如下说明运行正常：
+  > ......
+  > ......
+  > Creating mysql-db ... done
+  > Creating resume-server ... done
+  > Creating resume-web    ... done
   > ```
   >
-  > 
+  > ```bash
+  > # 查看运行情况
+  > docker ps
+  > ```
+  >
+  > ![image-20230810181616336](README.assets/image-20230810181616336.png)
+  >
+  > 默认该 web 服务将会serve 在你服务器的 `83` 端口。
 
-  
-
-  
 
 
-
-
-
-https://heropatterns.com/
