@@ -12,4 +12,9 @@ router.get(
     "/get",
     services.get
 );
+router.get(
+    "/getVisitors",
+    services.getVisitors
+);
+
 module.exports = router;
