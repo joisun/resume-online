@@ -18,7 +18,7 @@ RUN pnpm install
 
 # 设置环境变量
 ENV NODE_ENV=production
-ENV DB_HOST=mysql-db
+ENV DB_HOST=resume-db
 ENV DB_PORT=3306
 ENV DB_USER=root
 ENV DB_PASSWORD=123456
