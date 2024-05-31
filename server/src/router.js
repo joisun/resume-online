@@ -16,5 +16,10 @@ router.get(
     "/getVisitors",
     services.getVisitors
 );
+router.post(
+    "/userLeaved",
+    services.userLeaved
+);
+
 
 module.exports = router;

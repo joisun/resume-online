@@ -28,6 +28,18 @@ exports.getVisitors = async (req, res) => {
 
 }
 
+exports.userLeaved = async (req, res) => {
+
+    let sql = "UPDATE visitors SET leave_time = ? WHERE id = ?";
+    const timestamp = new Date();
+    
+    let sql_params = [timestamp,req.query.id];
+    await database.base(sql, sql_params, (result) => {
+        res.status(200).end()
+    });
+
+}
+
 exports.get = async (req, res) => {
     // 写入 visitor
     let uuid = crypto.randomUUID();
