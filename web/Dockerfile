@@ -11,14 +11,15 @@ WORKDIR /app
 COPY ./package*.json ./
 
 # 安装依赖
-RUN npm install
+RUN npm install pnpm -g
+RUN pnpm install
 
 # 复制应用程序代码到工作目录
 COPY . .
 
 # 设置环境变量
 ENV NODE_ENV=production
-RUN npm run build
+RUN pnpm run build
 
 
 

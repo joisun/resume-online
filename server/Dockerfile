@@ -12,7 +12,8 @@ WORKDIR /app
 COPY . .
 
 # 安装依赖
-RUN npm install
+RUN npm install pnpm -g
+RUN pnpm install
 
 
 # 设置环境变量
