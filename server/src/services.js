@@ -87,6 +87,7 @@ function getClientIp(req) {
 function getClientInfo(req) {
     try {
         const ip = getClientIp(req)
+        console.log("来自：", ip , "的访问.")
         const query = new IP2Region();
         const info = query.search(ip);
         if (typeof info === 'object') {
