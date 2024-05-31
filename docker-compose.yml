@@ -30,7 +30,6 @@ services:
     container_name: 'resume-db'
     image: mysql:latest
     restart: always
-    command: rm -rf ./mysql-data
     ports:
       - 3392:3306
     environment:
