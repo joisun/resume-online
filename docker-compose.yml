@@ -22,14 +22,15 @@ services:
     ports:
       - 4000:4000
     depends_on:
-      - mysql-db
+      - resume-db
     networks:
       - online-resume
 
-  mysql-db:
-    container_name: 'mysql-db'
+  resume-db:
+    container_name: 'resume-db'
     image: mysql:latest
     restart: always
+    command: rm -rf ./mysql-data
     ports:
       - 3392:3306
     environment:
