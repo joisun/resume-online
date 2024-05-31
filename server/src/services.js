@@ -1,6 +1,7 @@
 const database = require('./database.js');
 var fs = require('fs');
 var IP2Region = require('ip2region').default;
+var crypto = require("crypto");
 
 
 exports.save = async (req, res) => {
@@ -29,13 +30,14 @@ exports.getVisitors = async (req, res) => {
 
 exports.get = async (req, res) => {
     // 写入 visitor
+    let uuid = crypto.randomUUID();
     try {
         const info = getClientInfo(req)
         if (info) {
-            let sql1 = "INSERT INTO visitors (created_time,country, province, city, isp, ip) VALUES (?, ?, ?, ?, ?, ?)";
+            let sql1 = "INSERT INTO visitors (created_time,country, province, city, isp, ip, id) VALUES (?, ?, ?, ?, ?, ?, ?)";
             const timestamp = new Date();
             const { country, province, city, isp, ip } = info;
-            let sql_params2 = [timestamp, country, province, city, isp, ip];
+            let sql_params2 = [timestamp, country, province, city, isp, ip, uuid];
             await database.base(sql1, sql_params2, (result) => {
                 let response = JSON.parse(JSON.stringify(result));
             })
@@ -52,7 +54,7 @@ exports.get = async (req, res) => {
             res.send({});
             return; // 确保函数在这里返回，避免进一步执行
         }
-        res.send(response[0]);
+        res.send({...response[0], uuid});
     })
 }
 

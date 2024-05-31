@@ -5,12 +5,14 @@ CREATE TABLE online_resume.main (
 )
 
 CREATE TABLE online_resume.visitors (
+	leave_time DATETIME NULL,
 	created_time DATETIME NULL,
 	country varchar(100) NULL,
 	province varchar(100) NULL,
 	city varchar(100) NULL,
 	isp varchar(100) NULL,
-	ip varchar(100) NULL
+	ip varchar(100) NULL,
+	id varchar(100) NOT NULL
 )
 
 
