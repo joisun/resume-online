@@ -15,7 +15,7 @@ exports.save = async (req, res) => {
 }
 exports.getVisitors = async (req, res) => {
     // 查询visitors表最近100条所有的记录
-    let sql = "SELECT * FROM visitors ORDER BY created_time DESC LIMIT 100";
+    let sql = "SELECT * FROM visitors ORDER BY created_time DESC LIMIT 500";
     let sql_params = [];
     await database.base(sql, sql_params, (result) => {
         let response = JSON.parse(JSON.stringify(result));

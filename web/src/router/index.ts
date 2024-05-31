@@ -18,6 +18,11 @@ const router = createRouter({
       component: () => import('../views/Admin/Admin.vue')
     },
     {
+      path: '/visitors',
+      name: 'visitors',
+      component: () => import('../views/Visitors/index.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: '404',
       component: NotFoundPage
