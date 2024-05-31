@@ -5,9 +5,9 @@
     "main": "./src/app.js",
     "env": {
         "development": {
-          "NODE_ENV": "development"
+            "NODE_ENV": "development"
         }
-      },
+    },
     "scripts": {
         "dev": "node src/app.js"
     },
@@ -27,6 +27,7 @@
         "dotenv": "^16.3.1",
         "express": "^4.17.1",
         "install": "^0.13.0",
+        "ip2region": "^2.3.0",
         "mysql2": "^3.6.0"
     }
 }
