@@ -130,6 +130,7 @@
 ```bash
 npm run docker:rebuild
 ```
+如果你手动修改了 init.sql 变更了数据表，你可能需要手动删除 ./mysql-data 先，否则可能不被覆盖
 
 > 无需再次执行 docker-compose up
 
