@@ -42,15 +42,23 @@ const handleEnter = () => {
   }
 };
 
+// 埋个标识，用以标记用户访问证明，离开页面时告诉服务器，以记录该用户访问时长
+const cacheUUID = (uuid)=>{
+  sessionStorage.setItem('access_id', uuid)
+}
+
 
 fetch('/api/get')
   .then(response => response.json())
   .then(data => {
     state.text = data.content;
+    if(data.uuid) cacheUUID(data.uuid)
   })
   .catch(error => {
     console.error('Fetch error:', error);
   });
+
+
 </script>
 
 <template>

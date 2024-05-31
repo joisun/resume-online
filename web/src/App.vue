@@ -1,5 +1,25 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
+
+ // 监听 unload 事件
+ window.addEventListener('unload', function (event) {
+            // 可以在这里执行一些操作，例如记录日志
+            console.log('unload event triggered');
+            const uuid = sessionStorage.getItem("access-id")
+            if(uuid){
+              fetch('/api/userLeaved')
+                .then(response => response.json())
+                .then(data => {
+                  state.text = data.content;
+                  if(data.uuid) cacheUUID(data.uuid)
+                })
+                .catch(error => {
+                  console.error('Fetch error:', error);
+                });
+            }
+
+   
+        });
 </script>
 
 <template>
