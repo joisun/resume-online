@@ -98,14 +98,27 @@
   > ![image-20230810181616336](README.assets/image-20230810181616336.png)
   >
   > 默认该 web 服务将会serve 在你服务器的 `83` 端口。
+  > 注意： 如果你需要部署在你自己的域名服务器，你需要做一层代理转发，还有nginx的一些相关配置，否则， /visitors 页面将无法正确记录访问者实际ip地址
+  >
+  > ```nginx
+  > # nginx.conf
+  > ......
+  >     location / {
+  >       proxy_pass http://localhost:83/;
+  >       proxy_set_header X-Real-IP $remote_addr; 
+  >       proxy_set_header X-Forwarded-For $remote_addr; #不可缺失，否则将无法正确追踪访问者ip
+  >       proxy_set_header Host $http_host;
+  >       proxy_set_header X-Nginx-Proxy true;
+  >       proxy_set_header Connection "";
+  >     }
+  > ......
+  > ```
 
 
 
-#### Admin 管理页面
 
-密码即所设定的 VITE_ADMIN_PASSWD 变量
 
-（占位：缺个图）
+
 
 #### Visitors 访问统计页面
 
