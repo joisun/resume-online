@@ -54,7 +54,8 @@ let passwd = ref('');
 let list = ref([])
 let spin = ref(false)
 const handleEnter = () => {
-  if (!import.meta.env.VITE_ADMIN_PASSWD) {
+  const { VITE_ADMIN_PASSWD } = import.meta.env
+  if (!VITE_ADMIN_PASSWD) {
     notify(
       {
         group: 'error',
@@ -65,7 +66,7 @@ const handleEnter = () => {
     );
     return
   }
-  if (passwd.value.trim() === import.meta.env.VITE_ADMIN_PASSWD) {
+  if (passwd.value.trim() === VITE_ADMIN_PASSWD) {
     hidden.value = false;
     notify(
       {
