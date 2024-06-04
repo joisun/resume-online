@@ -85,7 +85,7 @@ const handleSave = () => {
   <div v-if="hidden"
     class="w-full h-full z-0 bg-black absolute top-0 bottom-0 left-0 right-0 text-white flex justify-center items-center">
     输入密码:
-    <input autofocus v-model="passwd" @keyup.enter="handleEnter" class="border-0 p-2 m-2 rounded-lg text-black"
+    <input autocomplete="off" autofocus v-model="passwd" @keyup.enter="handleEnter" class="border-0 p-2 m-2 rounded-lg text-black"
       type="password" />
   </div>
   <div class="about w-full h-screen border border-red-700" v-if="!hidden">

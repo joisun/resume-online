@@ -103,7 +103,7 @@ fetch('/api/get')
     <div
       class="filter-mask absolute inset-0 flex flex-col justify-center items-center backdrop-blur-sm backdrop-opacity-80">
       {{ VITE_PASSWD_INPUT_LABEL || '请输入密码:' }}
-      <input autofocus v-model="state.passwd" @keyup.enter="handleEnter" class="border-2 p-2 m-2 rounded-lg text-black "
+      <input autocomplete="off" autofocus v-model="state.passwd" @keyup.enter="handleEnter" class="border-2 p-2 m-2 rounded-lg text-black "
         type="password" />
     </div>
   </div>
