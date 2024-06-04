@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
-// import { Editor, Viewer } from '@bytemd/react'
 import '@/styles/github-heading.scss';
 import { MdCatalog, MdPreview } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
 import { notify } from 'notiwind';
 import Qrcode from "qrcode";
 import OperationSet from "./components/OperationSet.vue";
-const { VITE_PASSWD,VITE_PASSWD_INPUT_LABEL, VITE_SUCCESS_TITLE, VITE_SUCCESS_CONTENT, VITE_ERROR_TITLE, VITE_ERROR_CONTENT,VITE_PASSINPUTPAGE_BG} = import.meta.env
+const { VITE_PASSWD, VITE_PASSWD_INPUT_LABEL, VITE_SUCCESS_TITLE, VITE_SUCCESS_CONTENT, VITE_ERROR_TITLE, VITE_ERROR_CONTENT, VITE_PASSINPUTPAGE_BG } = import.meta.env
 // 指定 背景的纹理
 const background = VITE_PASSINPUTPAGE_BG || 'circuit-board'
 const mdPreviewRef = ref()
 const scrollElement = document.documentElement;
 const state = reactive({
   text: '',
-  hidden:VITE_PASSWD?.trim() ? true : false,
-  passwd:'',
+  hidden: VITE_PASSWD?.trim() ? true : false,
+  passwd: '',
   theme: 'githubHeadling'
 });
 
@@ -30,7 +29,7 @@ const handleEnter = () => {
       },
       2000,
     );
-  }else{
+  } else {
     console.log("trigger")
     notify(
       {
@@ -43,13 +42,7 @@ const handleEnter = () => {
   }
 };
 
-// 埋个标识，用以标记用户访问证明，离开页面时告诉服务器，以记录该用户访问时长
-const cacheUUID = (uuid)=>{
-  sessionStorage.setItem('access_id', uuid)
-}
-
-
-onMounted(()=>{
+onMounted(() => {
   const mdPreviewDom = mdPreviewRef.value.$el
   const firstChild = mdPreviewDom.firstChild
   const canvasEl = document.createElement('canvas');
@@ -63,61 +56,52 @@ onMounted(()=>{
 
   const textNode = document.createElement('span')
   textNode.textContent = '扫码以查看在线简历'
-  textNode.style = `
+  textNode.style.cssText = `
   font-size:10px;
   font-weight:bold;
   text-align:center;
   display:grid;
-
   `
   canvasWrap.appendChild(textNode)
-  canvasWrap.style = `
+  canvasWrap.style.cssText = `
   position:absolute;
   top:3.75em;
   right:4rem;
   `
 
-  Qrcode.toCanvas(canvasEl, window.location.href,{
-    width:100,
-    margin:1
+  Qrcode.toCanvas(canvasEl, window.location.href, {
+    width: 100,
+    margin: 1
   }, function (error) {
-      if (error) console.error(error)
-      console.log('success!');
-    })
-  mdPreviewDom.insertBefore(canvasWrap,firstChild)
-  
-
+    if (error) console.error(error)
+    console.log('success!');
+  })
+  mdPreviewDom.insertBefore(canvasWrap, firstChild)
 })
 
-
+// 埋个标识，用以标记用户访问证明，离开页面时告诉服务器，以记录该用户访问时长
+const cacheUUID = (uuid: string) => {
+  sessionStorage.setItem('access_id', uuid)
+}
 fetch('/api/get')
   .then(response => response.json())
   .then(data => {
     state.text = data.content;
-    if(data.uuid) cacheUUID(data.uuid)
+    if (data.uuid) cacheUUID(data.uuid)
   })
   .catch(error => {
     console.error('Fetch error:', error);
   });
-
-
 </script>
 
 <template>
-  <div
-    v-if="state.hidden"
-    :class="`z-0 bg-white absolute inset-0 text-black  ${background}`"
-  >
-  <div class="filter-mask absolute inset-0 flex flex-col justify-center items-center backdrop-blur-sm backdrop-opacity-80">
-    {{VITE_PASSWD_INPUT_LABEL || '请输入密码:'}}
-    <input
-    autofocus
-    v-model="state.passwd"
-    @keyup.enter="handleEnter"
-    class="border-2 p-2 m-2 rounded-lg text-black "
-    type="password"
-    />
-  </div>
+  <div v-if="state.hidden" :class="`z-0 bg-white absolute inset-0 text-black  ${background}`">
+    <div
+      class="filter-mask absolute inset-0 flex flex-col justify-center items-center backdrop-blur-sm backdrop-opacity-80">
+      {{ VITE_PASSWD_INPUT_LABEL || '请输入密码:' }}
+      <input autofocus v-model="state.passwd" @keyup.enter="handleEnter" class="border-2 p-2 m-2 rounded-lg text-black "
+        type="password" />
+    </div>
   </div>
 
   <template v-else>
@@ -128,23 +112,16 @@ fetch('/api/get')
     <main class="bg-white  container mx-auto p-4 lg:p-10 md:w-[944px] lg:w-[1024px] h-full sm:mb-12 sm:mt-12 shadow-xl">
       <MdCatalog
         class="fixed top-12 bottom-12 py-4 ml-4 overflow-auto  rounded-lg hidden 2xl:block left-0 bg-white w-72 border"
-        editorId="bind-md-log-and-preview"
-        :scrollElement="scrollElement"
-      />
-      <MdPreview
-        ref="mdPreviewRef"
-        class="md-preview border border-red-700"
-        editorId="bind-md-log-and-preview"
-        id="printMe"
-        :previewTheme="state.theme"
-        v-model="state.text"
-      />
+        editorId="bind-md-log-and-preview" :scrollElement="scrollElement" />
+      <MdPreview ref="mdPreviewRef" class="md-preview border border-red-700" editorId="bind-md-log-and-preview"
+        id="printMe" :previewTheme="state.theme" v-model="state.text" />
     </main>
   </template>
 </template>
 
 <style lang="scss" scoped>
 @import url('./seamlessSvgPatterns.css');
+
 .md-preview :deep(.md-editor-preview-wrapper) {
   padding: 0;
 }

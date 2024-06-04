@@ -1,6 +1,6 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 import Notifications from 'notiwind'
+import { createPinia } from 'pinia'
+import { createApp } from 'vue'
 import print from 'vue3-print-nb'
 
 import App from './App.vue'

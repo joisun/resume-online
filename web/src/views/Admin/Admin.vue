@@ -1,31 +1,13 @@
-<template>
-  <div
-    v-if="hidden"
-    class="w-full h-full z-0 bg-black absolute top-0 bottom-0 left-0 right-0 text-white flex justify-center items-center"
-  >
-    输入密码:
-    <input
-      autofocus
-      v-model="passwd"
-      @keyup.enter="handleEnter"
-      class="border-0 p-2 m-2 rounded-lg text-black"
-      type="password"
-    />
-  </div>
-  <div class="about w-full h-screen border border-red-700" v-if="!hidden">
-    <md-editor class="!h-full" v-model="text" @onSave="handleSave" ></md-editor>
-  </div>
-</template>
 <script setup lang="ts">
-import { ref} from 'vue';
-import { notify } from 'notiwind';
-import {MdEditor} from 'md-editor-v3';
+import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
+import { notify } from 'notiwind';
+import { ref } from 'vue';
 let text = ref('');
 let hidden = ref(true);
 let passwd = ref('');
 const handleEnter = () => {
-  if(!import.meta.env.VITE_ADMIN_PASSWD){
+  if (!import.meta.env.VITE_ADMIN_PASSWD) {
     notify(
       {
         group: 'error',
@@ -46,7 +28,7 @@ const handleEnter = () => {
       },
       500,
     );
-  }else{
+  } else {
     console.log("trigger")
     notify(
       {
@@ -71,30 +53,42 @@ fetch('/api/get')
   });
 const handleSave = () => {
   fetch('/api/save', {
-  method: 'post',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    context: text.value
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      context: text.value
+    })
   })
-})
-  .then(response => {
-    if (response.ok) {
-      notify(
-        {
-          group: 'foo',
-          title: 'Success',
-          text: '保存成功!',
-        },
-        500,
-      );
-    } else {
-      throw new Error('Network response was not ok');
-    }
-  })
-  .catch(error => {
-    console.error('Fetch error:', error);
-  });
+    .then(response => {
+      if (response.ok) {
+        notify(
+          {
+            group: 'foo',
+            title: 'Success',
+            text: '保存成功!',
+          },
+          500,
+        );
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
 };
 </script>
+
+<template>
+  <div v-if="hidden"
+    class="w-full h-full z-0 bg-black absolute top-0 bottom-0 left-0 right-0 text-white flex justify-center items-center">
+    输入密码:
+    <input autofocus v-model="passwd" @keyup.enter="handleEnter" class="border-0 p-2 m-2 rounded-lg text-black"
+      type="password" />
+  </div>
+  <div class="about w-full h-screen border border-red-700" v-if="!hidden">
+    <md-editor class="!h-full" v-model="text" @onSave="handleSave"></md-editor>
+  </div>
+</template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterView } from 'vue-router';
 
 // 监听 unload 事件
 window.addEventListener("unload", logData, false);
@@ -7,7 +7,7 @@ window.addEventListener("unload", logData, false);
 function logData() {
   // 这个api保证请求正常发送, 它将发送一个post 请求
   const uuid = sessionStorage.getItem("access_id")
-  console.log('uuid',uuid)
+  console.log('uuid', uuid)
   navigator.sendBeacon(`/api/userLeaved?id=${uuid}`);
   console.log('unload event triggered');
 }
@@ -37,7 +37,7 @@ function logData() {
                 <div class="mx-3">
                   <span class="font-semibold text-green-500">{{
                     notification.title
-                    }}</span>
+                  }}</span>
                   <p class="text-sm text-gray-600">{{ notification.text }}</p>
                 </div>
               </div>
@@ -66,7 +66,7 @@ function logData() {
                 <div class="mx-3">
                   <span class="font-semibold text-red-500">{{
                     notification.title
-                    }}</span>
+                  }}</span>
                   <p class="text-sm text-gray-600">{{ notification.text }}</p>
                 </div>
               </div>
