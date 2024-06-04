@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 // import { Editor, Viewer } from '@bytemd/react'
-import OperationSet from "./components/OperationSet.vue"
-import {MdPreview,MdCatalog } from 'md-editor-v3';
+import '@/styles/github-heading.scss';
+import { MdCatalog, MdPreview } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
-import '@/styles/github-heading.scss'
 import { notify } from 'notiwind';
+import Qrcode from "qrcode";
+import OperationSet from "./components/OperationSet.vue";
 const { VITE_PASSWD,VITE_PASSWD_INPUT_LABEL, VITE_SUCCESS_TITLE, VITE_SUCCESS_CONTENT, VITE_ERROR_TITLE, VITE_ERROR_CONTENT,VITE_PASSINPUTPAGE_BG} = import.meta.env
 // 指定 背景的纹理
 const background = VITE_PASSINPUTPAGE_BG || 'circuit-board'
-
+const mdPreviewRef = ref()
 const scrollElement = document.documentElement;
 const state = reactive({
   text: '',
@@ -46,6 +47,47 @@ const handleEnter = () => {
 const cacheUUID = (uuid)=>{
   sessionStorage.setItem('access_id', uuid)
 }
+
+
+onMounted(()=>{
+  const mdPreviewDom = mdPreviewRef.value.$el
+  const firstChild = mdPreviewDom.firstChild
+  const canvasEl = document.createElement('canvas');
+  const canvasInnerWrap = document.createElement('div');
+  canvasInnerWrap.appendChild(canvasEl)
+
+  const canvasWrap = document.createElement('div');
+  // canvas 本身必须用div包裹，否则打印位置会和其他内容颠倒
+  canvasWrap.appendChild(canvasInnerWrap)
+
+
+  const textNode = document.createElement('span')
+  textNode.textContent = '扫码以查看在线简历'
+  textNode.style = `
+  font-size:10px;
+  font-weight:bold;
+  text-align:center;
+  display:grid;
+
+  `
+  canvasWrap.appendChild(textNode)
+  canvasWrap.style = `
+  position:absolute;
+  top:3.75em;
+  right:4rem;
+  `
+
+  Qrcode.toCanvas(canvasEl, window.location.href,{
+    width:100,
+    margin:1
+  }, function (error) {
+      if (error) console.error(error)
+      console.log('success!');
+    })
+  mdPreviewDom.insertBefore(canvasWrap,firstChild)
+  
+
+})
 
 
 fetch('/api/get')
@@ -86,12 +128,13 @@ fetch('/api/get')
     <main class="bg-white  container mx-auto p-4 lg:p-10 md:w-[944px] lg:w-[1024px] h-full sm:mb-12 sm:mt-12 shadow-xl">
       <MdCatalog
         class="fixed top-12 bottom-12 py-4 ml-4 overflow-auto  rounded-lg hidden 2xl:block left-0 bg-white w-72 border"
-        editorId="printMe"
+        editorId="bind-md-log-and-preview"
         :scrollElement="scrollElement"
       />
       <MdPreview
+        ref="mdPreviewRef"
         class="md-preview border border-red-700"
-        editorId="printMe"
+        editorId="bind-md-log-and-preview"
         id="printMe"
         :previewTheme="state.theme"
         v-model="state.text"

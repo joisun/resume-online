@@ -10,11 +10,12 @@ onMounted(()=>{
       console.log('success!');
     })
 })
+const location = window.location.href
 </script>
 <template>
   <div class="text-gray-400 top-64 right-60 fixed lg:flex flex-col gap-8 z-10 hidden ">
     <a class="flex justify-center items-center  link-button w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 hover:text-gray-50 transition-all "
-       title="PDF打印下载" href="javascript:void(0)" v-print="'#printMe'">
+       title="PDF打印下载" href="javascript:void(0)" v-print="{id:'printMe', popTitle:`在线简历地址：${location}`}">
       <span class="flex items-center">
         <svg
              class="icon"
