@@ -3,11 +3,11 @@ services:
   resume-web:
     container_name: 'resume-web'
     restart: always
-    environment:
-      - VITE_ADMIN_PASSWD="jayce"
     build:
       context: ./web/
       dockerfile: Dockerfile
+      args:
+        - VITE_ADMIN_PASSWD="jayce"  # 构建阶段注入环境变量
     ports:
       - 83:80
     depends_on:

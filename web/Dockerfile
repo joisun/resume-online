@@ -18,6 +18,10 @@ RUN pnpm install
 COPY . .
 
 # 设置环境变量
+ARG VITE_ADMIN_PASSWD
+ENV VITE_ADMIN_PASSWD=$VITE_ADMIN_PASSWD
+
+# 设置环境变量
 ENV NODE_ENV=production
 RUN pnpm run build
 
