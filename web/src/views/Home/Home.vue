@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue';
+import { nextTick, onMounted, reactive, ref } from 'vue';
 import '@/styles/github-heading.scss';
 import { MdCatalog, MdPreview } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
@@ -21,6 +21,7 @@ const state = reactive({
 const handleEnter = () => {
   if (state.passwd.trim() === VITE_PASSWD) {
     state.hidden = false;
+    nextTick(generateQr)
     notify(
       {
         group: 'foo',
@@ -30,7 +31,6 @@ const handleEnter = () => {
       2000,
     );
   } else {
-    console.log("trigger")
     notify(
       {
         group: 'error',
@@ -43,6 +43,11 @@ const handleEnter = () => {
 };
 
 onMounted(() => {
+  if (!state.hidden){
+    generateQr()
+  }
+})
+const generateQr = () => {
   const mdPreviewDom = mdPreviewRef.value.$el
   const firstChild = mdPreviewDom.firstChild
   const canvasEl = document.createElement('canvas');
@@ -74,10 +79,9 @@ onMounted(() => {
     margin: 1
   }, function (error) {
     if (error) console.error(error)
-    console.log('success!');
   })
   mdPreviewDom.insertBefore(canvasWrap, firstChild)
-})
+}
 
 // 埋个标识，用以标记用户访问证明，离开页面时告诉服务器，以记录该用户访问时长
 const cacheUUID = (uuid: string) => {

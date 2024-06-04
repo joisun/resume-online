@@ -16,4 +16,5 @@ app.use(Notifications)
 app.use(print)
 
 
+
 app.mount('#app')

@@ -7,7 +7,14 @@ services:
       context: ./web/
       dockerfile: Dockerfile
       args:
-        - VITE_ADMIN_PASSWD="jayce"  # 构建阶段注入环境变量
+        - VITE_ADMIN_PASSWD=jayce_sun  # 构建阶段注入环境变
+        - VITE_PASSWD=hello
+        - VITE_PASSINPUTPAGE_BG=wave
+        - VITE_PASSWD_INPUT_LABEL=密码?，请你🍉️🍉️：
+        - VITE_SUCCESS_TITLE= 🥳️🥳️🥳️
+        - VITE_SUCCESS_CONTENT=成功!🎉️🎉️
+        - VITE_ERROR_TITLE=君子蛋蛋，小人鸡鸡！
+        - VITE_ERROR_CONTENT=我已经报警了！！！
     ports:
       - 83:80
     depends_on:

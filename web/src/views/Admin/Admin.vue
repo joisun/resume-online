@@ -7,7 +7,8 @@ let text = ref('');
 let hidden = ref(true);
 let passwd = ref('');
 const handleEnter = () => {
-  if (!import.meta.env.VITE_ADMIN_PASSWD) {
+  const { VITE_ADMIN_PASSWD } = import.meta.env
+  if (!VITE_ADMIN_PASSWD) {
     notify(
       {
         group: 'error',
@@ -18,7 +19,7 @@ const handleEnter = () => {
     );
     return
   }
-  if (passwd.value.trim() === import.meta.env.VITE_ADMIN_PASSWD) {
+  if (passwd.value.trim() === VITE_ADMIN_PASSWD) {
     hidden.value = false;
     notify(
       {
@@ -29,7 +30,6 @@ const handleEnter = () => {
       500,
     );
   } else {
-    console.log("trigger")
     notify(
       {
         group: 'error',

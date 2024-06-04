@@ -8,7 +8,6 @@ onMounted(() => {
     margin: 1
   }, function (error) {
     if (error) console.error(error)
-    console.log('success!');
   })
 })
 const location = window.location.href

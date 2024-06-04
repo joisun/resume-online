@@ -4,10 +4,21 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
+
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command, mode }) => ({
   base: './',
   plugins: [vue(), vueJsx()],
+  define: command === 'build' ? {
+    'import.meta.env.VITE_ADMIN_PASSWD': process.env.VITE_ADMIN_PASSWD,
+    'import.meta.env.VITE_PASSWD': process.env.VITE_PASSWD,
+    'import.meta.env.VITE_PASSINPUTPAGE_BG': process.env.VITE_PASSINPUTPAGE_BG,
+    'import.meta.env.VITE_PASSWD_INPUT_LABEL': process.env.VITE_PASSWD_INPUT_LABEL,
+    'import.meta.env.VITE_SUCCESS_TITLE': process.env.VITE_SUCCESS_TITLE,
+    'import.meta.env.VITE_SUCCESS_CONTENT': process.env.VITE_SUCCESS_CONTENT,
+    'import.meta.env.VITE_ERROR_TITLE': process.env.VITE_ERROR_TITLE,
+    'import.meta.env.VITE_ERROR_CONTENT': process.env.VITE_ERROR_CONTENT,
+  } : {},
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
@@ -23,4 +34,4 @@ export default defineConfig({
     }
   }
 
-})
+}))

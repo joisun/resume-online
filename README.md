@@ -6,13 +6,25 @@
 
 >  based on vue3 + tailwind + node-express + nginx + docker
 
-**展示页：**
+
+
+**首页：**
 
 ![image-20230810154204457](README.assets/image-20230810154204457.png)
 
-**管理编辑页 ：(访问你所部署页面的 /admin 路由即可)**
+**管理编辑页 ：( /admin )**
+
+实时修改你的简历
 
 ![image-20230810154302448](README.assets/image-20230810154302448.png)
+
+**Visitors 访问统计页面：( /visitors)**
+
+提供了基本的访问记录统计， 记录了访问时间，访问者ip, 城市等信息。
+
+（占位：缺个图）
+
+
 
 ### How to use
 
@@ -25,7 +37,24 @@
   <title>Change here to yours</title>
   ```
 
-  然后，按需 在 `/web/.env` 中定义你的环境变量， 支持以下环境变量：
+
+- step3:  按需 在 `docker-compose.yml` 中定义你的环境变量
+
+  ```yml
+    resume-web:
+      container_name: 'resume-web'
+      restart: always
+      build:
+        context: ./web/
+        dockerfile: Dockerfile
+        args:
+          - VITE_ADMIN_PASSWD="1234"  # 构建阶段注入环境变量
+          # 在这里定义你的变量
+      ports:
+      ........
+  ```
+
+  支持以下环境变量：
 
   | 变量字段                  | 描述                                                         | 是否可缺省 | 默认值            |
   | ------------------------- | ------------------------------------------------------------ | :--------: | ----------------- |
@@ -52,30 +81,13 @@
   VITE_ERROR_CONTENT=再错我报警了啊！！！
   ```
 
+- step4: 复制你 fork 的仓库地址
 
-#### 首页:
+- step5: 登陆你的服务器, 然后找个地方 把 代码 clone 下来
 
+  > 服务器 `git clone` 可能很慢， 建议先同步到 Gitee, 然后从 Gitee 中 clone
 
-
-![image-20230810180051830](README.assets/image-20230810180051830.png)
-
-输入密码错误：
-
-![image-20230810180138963](README.assets/image-20230810180138963.png)
-
-输入密码正确 : 
-
-![image-20230810180426036](README.assets/image-20230810180426036.png)
-
-
-
-- step3: 复制你 fork 的仓库地址
-
-- step4: 登陆你的服务器, 然后找个地方 把 代码 clone 下来
-
-  > 服务器 `git clone` 可能很慢， 建议先同不到 Gitee, 然后从 Gitee 中 clone (记得设定为开源仓库哦)
-
-- step5: cd 到根目录， 也就是  `docker-compose.yml` 这个文件所在目录， 然后执行：
+- step6: 执行：
 
   > ```bash
   > docker-compose up -d
@@ -98,35 +110,32 @@
   > ![image-20230810181616336](README.assets/image-20230810181616336.png)
   >
   > 默认该 web 服务将会serve 在你服务器的 `83` 端口。
-  > 注意： 如果你需要部署在你自己的域名服务器，你需要做一层代理转发，还有nginx的一些相关配置，否则， /visitors 页面将无法正确记录访问者实际ip地址
-  >
-  > ```nginx
-  > # nginx.conf
-  > ......
-  >     location / {
-  >       proxy_pass http://localhost:83/;
-  >       proxy_set_header X-Real-IP $remote_addr; 
-  >       proxy_set_header X-Forwarded-For $remote_addr; #不可缺失，否则将无法正确追踪访问者ip
-  >       proxy_set_header Host $http_host;
-  >       proxy_set_header X-Nginx-Proxy true;
-  >       proxy_set_header Connection "";
-  >     }
-  > ......
-  > ```
+
+- 特别注意：
+
+  注意： 如果你需要部署在你自己的域名服务器，你需要做一层代理转发，还有nginx的一些相关配置，否则， /visitors 页面将无法正确记录访问者实际ip地址
+
+  ```nginx
+  # nginx.conf
+  ......
+   location / {
+     proxy_pass http://localhost:83/;
+     proxy_set_header X-Real-IP $remote_addr; 
+     proxy_set_header X-Forwarded-For $remote_addr; #不可缺失，否则将无法正确追踪访问者ip
+     proxy_set_header Host $http_host;
+     proxy_set_header X-Nginx-Proxy true;
+     proxy_set_header Connection "";
+   }
+  ......
+  ```
+
+  
 
 
 
 
 
 
-
-#### Visitors 访问统计页面
-
-密码即所设定的 VITE_ADMIN_PASSWD 变量
-
-提供了基本的访问记录统计， 记录了访问时间，访问者ip, 城市等信息。
-
-（占位：缺个图）
 
 
 

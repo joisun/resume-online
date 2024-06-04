@@ -48,7 +48,6 @@ import { notify } from 'notiwind';
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import dayjs from "dayjs"
-console.log('dayjs', dayjs)
 let text = ref('');
 let hidden = ref(true);
 let passwd = ref('');
@@ -77,7 +76,6 @@ const handleEnter = () => {
       500,
     );
   } else {
-    console.log("trigger")
     notify(
       {
         group: 'error',
