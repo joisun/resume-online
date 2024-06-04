@@ -3,6 +3,8 @@ services:
   resume-web:
     container_name: 'resume-web'
     restart: always
+    environment:
+      VITE_ADMIN_PASSWD: "jayce"
     build:
       context: ./web/
       dockerfile: Dockerfile
