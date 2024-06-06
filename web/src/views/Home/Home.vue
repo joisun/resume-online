@@ -48,6 +48,8 @@ onMounted(() => {
   }
 })
 const generateQr = () => {
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  if(isMobile) return 
   const mdPreviewDom = mdPreviewRef.value.$el
   const firstChild = mdPreviewDom.firstChild
   const canvasEl = document.createElement('canvas');
