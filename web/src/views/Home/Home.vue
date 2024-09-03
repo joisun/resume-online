@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { nextTick, onMounted, reactive, ref } from 'vue';
+import metaRender from '@/mdPlugins/metaRender';
 import '@/styles/github-heading.scss';
-import { MdCatalog, MdPreview } from 'md-editor-v3';
+import mdfm from "markdown-it-front-matter";
+import { MdCatalog, MdPreview, config } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
 import { notify } from 'notiwind';
 import Qrcode from "qrcode";
+import { nextTick, onMounted, reactive, ref } from 'vue';
 import OperationSet from "./components/OperationSet.vue";
 const { VITE_PASSWD, VITE_PASSWD_INPUT_LABEL, VITE_SUCCESS_TITLE, VITE_SUCCESS_CONTENT, VITE_ERROR_TITLE, VITE_ERROR_CONTENT, VITE_PASSINPUTPAGE_BG } = import.meta.env
 // 指定 背景的纹理
@@ -16,6 +18,13 @@ const state = reactive({
   hidden: VITE_PASSWD?.trim() ? true : false,
   passwd: '',
   theme: 'githubHeadling'
+});
+config({
+  markdownItConfig(mdit) {
+    mdit.use(mdfm, (fm:string)=>{    
+      mdit.use(metaRender, fm);
+    });
+  }
 });
 
 const handleEnter = () => {

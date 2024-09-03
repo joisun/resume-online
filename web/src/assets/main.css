@@ -13,3 +13,54 @@ body,
 html {
   background-color: rgb(245, 245, 245);
 }
+
+.meta-info {
+  text-underline-offset: 4px;
+  margin-bottom: 4rem;
+  .meta-profile {
+    h1 {
+      text-align: center !important;
+      border-bottom: none
+    }
+    h1::before {
+      content: unset !important;
+    }
+    .meta-profile-list {
+      padding: 0;
+      text-align: center !important;
+    }
+    .meta-profile-item {
+      list-style: none;
+      display: inline-block;
+      i{
+        display: inline-block;
+        opacity: .4;
+      }
+    }
+  }
+  .meta-list {
+    padding: 0;
+    text-align: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .meta-list-item {
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    svg{
+      display: inline-block;
+      height: 1em;
+      width: 1em;
+      margin: 0 .5em;
+    }
+    i{
+      display: inline-block;
+      opacity: .4;
+    }
+  }
+
+}
