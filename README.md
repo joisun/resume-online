@@ -261,7 +261,13 @@ docker-compose build resume-web --no-cache
 
 > 无需再次执行 docker-compose up
 
-如果其他功能都正常，就是数据不更新，很可能是服务器时间问题，导致没有获取到最新的数据，此时可以删除目录下的 mysql-data 目录(该操作需要重启resume-db 服务)，或者，自行排查删除数据库 main 表 中历史的数据条目。
+如果其他功能都正常，就是数据不更新，很可能是服务器时间问题，导致没有获取到最新的数据，此时可以尝试
+```bash
+# 这里 -v 标志会删除与服务关联的卷，因此数据会被清空。
+docker-compose down -v
+docker-compose up
+```
+或者，自行排查删除数据库 main 表 中历史的数据条目。
 
 ## TODO
 

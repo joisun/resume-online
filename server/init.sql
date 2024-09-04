@@ -29,7 +29,7 @@ CREATE TABLE online_resume.root (
 	FONT_FAMILY varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'font-sans' NULL COMMENT '字体类型， 可选择值：font-mono | font-sans | font-serif',
 	FONT_WEIGHT varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'font-normal' NULL COMMENT '字体粗细， 可选择值：font-thin | font-normal | font-medium | font-semibold | font-bold',
 	THEME varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'default' NULL COMMENT '主题类型， 默认值为 default',
-	DISABLE_TRANSITION tinyint(1) DEFAULT 0 NULL COMMENT '禁用过渡动画， 0 表示不禁用， 1 表示禁用'
+	DISABLE_TRANSITION tinyint(1) DEFAULT 0 NULL COMMENT '禁用过渡动画， 0 表示不禁用， 1 表示禁用',
 	HIDE_ACCESS_PASSWD tinyint(1) DEFAULT 0 NULL COMMENT '隐藏简历访问密码， 0 表示不隐藏， 1 表示隐藏'
 	
 )
