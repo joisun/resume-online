@@ -45,7 +45,8 @@ exports.updateSettings = async function (req, res) {
             FONT_FAMILY=?, 
             FONT_WEIGHT=?, 
             THEME=?, 
-            DISABLE_TRANSITION=?
+            DISABLE_TRANSITION=?,
+            HIDE_ACCESS_PASSWD=?
     `;
 
     const timestamp = new Date();
@@ -63,7 +64,8 @@ exports.updateSettings = async function (req, res) {
         FONT_FAMILY,
         FONT_WEIGHT,
         THEME,
-        DISABLE_TRANSITION
+        DISABLE_TRANSITION,
+        HIDE_ACCESS_PASSWD
     } = req.body;
 
     // 更新参数列表，包含新字段
@@ -80,7 +82,8 @@ exports.updateSettings = async function (req, res) {
         FONT_FAMILY,
         FONT_WEIGHT,
         THEME,
-        DISABLE_TRANSITION
+        DISABLE_TRANSITION,
+        HIDE_ACCESS_PASSWD
     ];
 
     try {
@@ -105,7 +108,7 @@ exports.getPasswd = async function (req, res) {
     });
 }
 exports.getSettings = async function (req, res) {
-    let sql = "SELECT PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT, FONT_FAMILY, FONT_WEIGHT, THEME, DISABLE_TRANSITION FROM online_resume.root;"
+    let sql = "SELECT PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT, FONT_FAMILY, FONT_WEIGHT, THEME, DISABLE_TRANSITION, HIDE_ACCESS_PASSWD FROM online_resume.root;"
     let sql_params = [];
     await database.base(sql, sql_params, (result) => {
         let response = JSON.parse(JSON.stringify(result));
@@ -113,7 +116,7 @@ exports.getSettings = async function (req, res) {
     });
 }
 exports.getRootSettings = async function (req, res) {
-    let sql = "SELECT created_at, updated_at, ADMIN_PASSWD, PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT, FONT_FAMILY, FONT_WEIGHT, THEME, DISABLE_TRANSITION FROM online_resume.root;";
+    let sql = "SELECT created_at, updated_at, ADMIN_PASSWD, PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT, FONT_FAMILY, FONT_WEIGHT, THEME, DISABLE_TRANSITION, HIDE_ACCESS_PASSWD FROM online_resume.root;";
     let sql_params = [];
     await database.base(sql, sql_params, (result) => {
         let response = JSON.parse(JSON.stringify(result));

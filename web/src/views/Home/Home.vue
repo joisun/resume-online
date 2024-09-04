@@ -21,6 +21,7 @@ const Settings = reactive({
   FONT_FAMILY: "",
   FONT_WEIGHT: "",
   DISABLE_TRANSITION: 0,
+  HIDE_ACCESS_PASSWD: 0,
   THEME: "default",
 });
 const mdPreviewRef = ref<HTMLElement | null>(null);
@@ -90,8 +91,18 @@ const generateQr = () => {
   text-align:center;
   display:grid;
   `;
-
-  canvasWrap.appendChild(textNode);
+  const textNode2 = document.createElement("span");
+  textNode2.textContent = (Settings.HIDE_ACCESS_PASSWD === 1 || Settings.PASSWD.trim() === '') ? `` : `密码：${Settings.PASSWD}`;
+  textNode2.style.cssText = `
+  font-size:10px;
+  font-weight:400;
+  text-align:center;
+  display:grid;
+  `;
+  
+  canvasWrap.insertBefore(textNode, canvasInnerWrap);
+  canvasWrap.appendChild(textNode2);
+  
 
   Qrcode.toCanvas(
     canvasEl,
@@ -148,6 +159,7 @@ fetch("/api/getSettings")
       FONT_FAMILY,
       FONT_WEIGHT,
       DISABLE_TRANSITION,
+      HIDE_ACCESS_PASSWD,
       THEME,
     } = data;
 
@@ -161,6 +173,8 @@ fetch("/api/getSettings")
     Settings.FONT_FAMILY = FONT_FAMILY;
     Settings.FONT_WEIGHT = FONT_WEIGHT;
     Settings.DISABLE_TRANSITION = DISABLE_TRANSITION;
+    Settings.HIDE_ACCESS_PASSWD = HIDE_ACCESS_PASSWD;
+    
     Settings.THEME = THEME;
 
     if (Settings.PASSWD.trim() === "") {

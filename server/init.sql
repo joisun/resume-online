@@ -30,6 +30,8 @@ CREATE TABLE online_resume.root (
 	FONT_WEIGHT varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'font-normal' NULL COMMENT '字体粗细， 可选择值：font-thin | font-normal | font-medium | font-semibold | font-bold',
 	THEME varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'default' NULL COMMENT '主题类型， 默认值为 default',
 	DISABLE_TRANSITION tinyint(1) DEFAULT 0 NULL COMMENT '禁用过渡动画， 0 表示不禁用， 1 表示禁用'
+	HIDE_ACCESS_PASSWD tinyint(1) DEFAULT 0 NULL COMMENT '隐藏简历访问密码， 0 表示不隐藏， 1 表示隐藏'
+	
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
@@ -38,5 +40,5 @@ COMMENT='';
 
 
 INSERT INTO online_resume.root
-(created_at, updated_at, ADMIN_PASSWD, PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT, FONT_FAMILY, FONT_WEIGHT, THEME, DISABLE_TRANSITION)
-VALUES(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin', '', 'circuit-board', '请输入密码', '成功', '密码正确！', '错误！', '请验证密码输入！', 'font-sans', 'font-normal', 'default', 0);
+(created_at, updated_at, ADMIN_PASSWD, PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT, FONT_FAMILY, FONT_WEIGHT, THEME, DISABLE_TRANSITION, HIDE_ACCESS_PASSWD)
+VALUES(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin', '', 'circuit-board', '请输入密码', '成功', '密码正确！', '错误！', '请验证密码输入！', 'font-sans', 'font-normal', 'default', 0, 0);

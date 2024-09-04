@@ -6,8 +6,8 @@ services:
       context: ./web/
       dockerfile: Dockerfile
       args:
-        - VITE_ROOT_PASSWD=rootuser # 构建阶段注入环境变
-        - VITE_APP_TITLE=在线简历
+        - VITE_ROOT_PASSWD=root # 构建阶段注入环境变
+        - VITE_APP_TITLE=Online Resume
         - VITE_APP_LOGO=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJjdXJyZW50Q29sb3IiIGQ9Im0xOC41IDIybC0xLjQtMy4xbC0zLjEtMS40bDMuMS0xLjRsMS40LTMuMWwxLjQgMy4xbDMuMSAxLjRsLTMuMSAxLjRsLTEuNCAzLjFaTTQgMTlWN2w4LTZsOCA2djQuMTc1cS0uMzc1LS4xLS43NjMtLjEzOFQxOC40NzYgMTFxLTIuNzI1IDAtNC42IDEuOVQxMiAxNy41cTAgLjM3NS4wMzguNzV0LjEzNy43NUg0WiIvPjwvc3ZnPg==
     ports:
       - 83:80

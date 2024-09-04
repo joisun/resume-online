@@ -27,6 +27,7 @@ const formData = ref({
   FONT_WEIGHT: "font-normal",
   THEME: "default",
   DISABLE_TRANSITION: false,
+  HIDE_ACCESS_PASSWD: false,
 });
 
 async function fetchInitialData() {
@@ -39,6 +40,8 @@ async function fetchInitialData() {
         ...data,
         ADMIN_PASSWD: decryptData(data.ADMIN_PASSWD),
         PASSWD: decryptData(data.PASSWD),
+        DISABLE_TRANSITION:data.DISABLE_TRANSITION === 0 ? false : true,
+        HIDE_ACCESS_PASSWD:data.HIDE_ACCESS_PASSWD === 0 ? false : true
       };
     } else {
       console.error("获取初始数据失败");
@@ -299,10 +302,23 @@ fetch("/api/getPasswd")
           <label
             for="disableTransition"
             class="block text-sm font-medium text-gray-300"
-            >禁用过渡动画（禁用简历页面，的简历蒙层过渡效果）</label
+            >禁用简历页面，的简历蒙层过渡效果</label
           >
         </div>
-
+        <div class="mb-4 flex items-center">
+          <input
+            v-model="formData.HIDE_ACCESS_PASSWD"
+            id="disableTransition"
+            type="checkbox"
+            class="mr-2"
+          />
+          <label
+            for="disableTransition"
+            class="block text-sm font-medium text-gray-300"
+            >是否在简历中隐藏访问密码</label
+          >
+        </div>
+        
         <button
           type="submit"
           class="w-full py-2 bg-black/50 hover:bg-black/90 text-white font-bold rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
