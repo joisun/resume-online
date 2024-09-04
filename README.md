@@ -246,28 +246,46 @@ contact:
 
 ## Troubles shooting
 
-如果你自行修改了前端代码， 但是再线上服务器重新执行 `docker-compose down`, `docker-compose up -d` ， 但是前端没有刷新，可以在 根目录下执行一下命令 :
+1. 如果你自行修改了前端代码， 但是再线上服务器重新执行 `docker-compose down`, `docker-compose up -d` ， 但是前端没有刷新，可以在 根目录下执行一下命令 :
 
-```bash
-npm run docker:rebuild
-```
-你也可以手动单独打包前端项目
+   ```bash
+   npm run docker:rebuild
+   ```
 
-```bash
-docker-compose build resume-web --no-cache
-```
+   你也可以手动单独打包前端项目
 
-如果你手动修改了 init.sql 变更了数据表，你可能需要手动删除 ./mysql-data 先，否则可能不被覆盖
+   ```bash
+   docker-compose build resume-web --no-cache
+   ```
 
-> 无需再次执行 docker-compose up
+2. 如果你手动修改了 init.sql 变更了数据表，你可能需要手动删除 ./mysql-data 先，否则可能不被覆盖
 
-如果其他功能都正常，就是数据不更新，很可能是服务器时间问题，导致没有获取到最新的数据，此时可以尝试
-```bash
-# 这里 -v 标志会删除与服务关联的卷，因此数据会被清空。
-docker-compose down -v
-docker-compose up
-```
-或者，自行排查删除数据库 main 表 中历史的数据条目。
+3. 如果其他功能都正常，就是数据不更新，很可能是服务器时间问题，导致没有获取到最新的数据，此时可以尝试
+
+   ```bash
+   # 这里 -v 标志会删除与服务关联的卷，因此数据会被清空。
+   docker-compose down -v
+   rm -rf mysql-data # 删除数据库挂载目录
+   docker-compose up
+   ```
+
+   或者，自行排查删除数据库 main 表 中历史的数据条目。
+
+4. 重新构建
+
+   如果有未知问题，不易解决，可以直接重新构建
+
+   ```bash
+   docker-compose down -v
+   rm -rf mysql-data
+   docker image prune -a # 删除所有无引用镜像
+   docker-compose build --no-cache
+   docker-compose up -d
+   ```
+
+   
+
+
 
 ## TODO
 
