@@ -69,15 +69,22 @@ function renderList(_key: string, value: any) {
   return `
 <ul class="meta-list">
     ${set
-      .map(({ label, value, isLink, hideLink, icon }: any, index: number) => {
-        return `<li class="meta-list-item">${icon ? icon : ""}${
-          label ? `<strong>${label}:</strong>` : ""
-        }${
-          isLink
-            ? `<a href="${value}" target='_blank'>${hideLink ? "" : value}</a>`
-            : value
-        }${`${index === set.length - 1 ? "" : "&nbsp;<i>|</i>&nbsp;"}`}</li>`;
-      })
+      .map(
+        (
+          { label, value, isLink, hideValue, icon, iconInside }: any,
+          index: number
+        ) => {
+          return `<li class="meta-list-item">${
+            iconInside ? " " : icon ? icon : ""
+          }${label ? `<strong>${label}:</strong>` : ""}${
+            isLink
+              ? `<a href="${value}" target='_blank'>${
+                  icon && iconInside ? icon : ""
+                } ${hideValue ? " " : value}</a>`
+              : value
+          }${`${index === set.length - 1 ? "" : "&nbsp;<i>|</i>&nbsp;"}`}</li>`;
+        }
+      )
       .join("")}
 </ul>`;
 }

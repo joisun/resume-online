@@ -7,7 +7,8 @@ const crypto = require('crypto');
 
 exports.save = async (req, res) => {
     let sql = "INSERT INTO main(content, created_time, update_time) VALUES(?,?,?)";
-    let sql_params = [req.body.context, req.body.created_at, req.body.created_at];
+    const timestamp = new Date();
+    let sql_params = [req.body.context, timestamp, timestamp];
     await database.base(sql, sql_params, (result) => {
         let response = JSON.parse(JSON.stringify(result));
         res.send(response[0])
