@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 *,
 body,
 html {
@@ -14,15 +16,18 @@ html {
   background-color: rgb(245, 245, 245);
 }
 
+img{
+  display: inline;
+}
 .meta-info {
   text-underline-offset: 4px;
   margin-bottom: 4rem;
   .meta-profile {
-    h1 {
+    h1,h2 {
       text-align: center !important;
       border-bottom: none
     }
-    h1::before {
+    h1::before,h2::before {
       content: unset !important;
     }
     .meta-profile-list {
@@ -51,6 +56,7 @@ html {
     display: inline-flex;
     align-items: center;
     flex-wrap: wrap;
+    font-size: .8em;
     svg{
       display: inline-block;
       height: 1em;

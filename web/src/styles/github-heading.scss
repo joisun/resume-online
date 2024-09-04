@@ -58,7 +58,7 @@
     position: relative;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    font-weight: bold;
+    font-weight: 500;
     line-height: 1.4;
     cursor: text;
   }
@@ -125,48 +125,43 @@
     /* content: unset; */
   }
   
-  h1:before {
-    color: var(--cnblogs-post-body-h1-pesudo);
-    content: '#' !important;
-    margin-left: -36px !important;
-    float: left !important;
-  }
-  /* .post .postTitle:before{
-    color: ;
-    content: "#*1";
-    margin-left: -50px;
-    float: left;  
-  } */
-  h2:before {
-    color: var(--cnblogs-post-body-h2-pesudo);
-    content: '##' !important;
-    margin-left: -50px !important;
-    float: left !important;
-  }
-  h3:before {
-    color: var(--cnblogs-post-body-h3-pesudo);
-    content: '###' !important;
-    margin-left: -60px !important;
-    float: left !important;
-  }
-  h4:before {
-    color: var(--cnblogs-post-body-h4-pesudo);
-    content: '#*4' !important;
-    margin-left: -50px !important;
-    float: left !important;
-  }
-  h5:before {
-    color: var(--cnblogs-post-body-h5-pesudo);
-    content: '#*5' !important;
-    margin-left: -46px !important;
-    float: left !important;
-  }
-  h6:before {
-    color: var(--cnblogs-post-body-h6-pesudo);
-    content: '#*6' !important;
-    margin-left: -44px !important;
-    float: left !important;
-  }
+  // h1:before {
+  //   color: var(--cnblogs-post-body-h1-pesudo);
+  //   content: '#' !important;
+  //   margin-left: -36px !important;
+  //   float: left !important;
+  // }
+
+  // h2:before {
+  //   color: var(--cnblogs-post-body-h2-pesudo);
+  //   content: '##' !important;
+  //   margin-left: -50px !important;
+  //   float: left !important;
+  // }
+  // h3:before {
+  //   color: var(--cnblogs-post-body-h3-pesudo);
+  //   content: '###' !important;
+  //   margin-left: -60px !important;
+  //   float: left !important;
+  // }
+  // h4:before {
+  //   color: var(--cnblogs-post-body-h4-pesudo);
+  //   content: '#*4' !important;
+  //   margin-left: -50px !important;
+  //   float: left !important;
+  // }
+  // h5:before {
+  //   color: var(--cnblogs-post-body-h5-pesudo);
+  //   content: '#*5' !important;
+  //   margin-left: -46px !important;
+  //   float: left !important;
+  // }
+  // h6:before {
+  //   color: var(--cnblogs-post-body-h6-pesudo);
+  //   content: '#*6' !important;
+  //   margin-left: -44px !important;
+  //   float: left !important;
+  // }
   
   /*@media print {
       .typora-export h1,

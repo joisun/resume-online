@@ -1,7 +1,8 @@
 const database = require('./database.js');
+const { encryptData, decryptData } = require('./utils/index.js');
 var fs = require('fs');
 var IP2Region = require('ip2region').default;
-var crypto = require("crypto");
+const crypto = require('crypto');
 
 
 exports.save = async (req, res) => {
@@ -27,13 +28,68 @@ exports.getVisitors = async (req, res) => {
     });
 
 }
+exports.updateSettings = async function (req, res) {
+    let sql = "UPDATE root SET updated_at=?, ADMIN_PASSWD=?, PASSWD=?, PASSINPUTPAGE_BG=?, PASSWD_INPUT_LABEL=?, SUCCESS_TITLE=?, SUCCESS_CONTENT=?, ERROR_TITLE=?, ERROR_CONTENT=?;";
+    const timestamp = new Date();
+    const {
+        ADMIN_PASSWD,
+        PASSWD,
+        PASSINPUTPAGE_BG,
+        PASSWD_INPUT_LABEL,
+        SUCCESS_TITLE,
+        SUCCESS_CONTENT,
+        ERROR_TITLE,
+        ERROR_CONTENT,
+    } = req.body
+    let sql_params = [timestamp,
+        decryptData(ADMIN_PASSWD),
+        decryptData(PASSWD),
+        PASSINPUTPAGE_BG,
+        PASSWD_INPUT_LABEL,
+        SUCCESS_TITLE,
+        SUCCESS_CONTENT,
+        ERROR_TITLE,
+        ERROR_CONTENT,];
+    await database.base(sql, sql_params, (result) => {
+        res.status(200).end()
+    });
+}
+exports.getPasswd = async function (req, res) {
+    let sql = "SELECT ADMIN_PASSWD FROM online_resume.root;"
+    let sql_params = [];
+    await database.base(sql, sql_params, (result) => {
+        let response = JSON.parse(JSON.stringify(result));
+        res.send({ ADMIN_PASSWD: encryptData(response[0].ADMIN_PASSWD) })
+    });
+}
+exports.getSettings = async function (req, res) {
+    let sql = "SELECT PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT FROM online_resume.root;"
+    let sql_params = [];
+    await database.base(sql, sql_params, (result) => {
+        let response = JSON.parse(JSON.stringify(result));
+        res.send({ ...response[0], PASSWD: encryptData(response[0].PASSWD) })
+    });
+}
+exports.getRootSettings = async function (req, res) {
+    let sql = "SELECT created_at, updated_at, ADMIN_PASSWD, PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT FROM online_resume.root;"
+    let sql_params = [];
+    await database.base(sql, sql_params, (result) => {
+        let response = JSON.parse(JSON.stringify(result));
+        res.send({
+            ...response[0],
+            ADMIN_PASSWD: encryptData(response[0].ADMIN_PASSWD),
+            PASSWD: encryptData(response[0].PASSWD)
+        })
+    });
+}
+
 
 exports.userLeaved = async (req, res) => {
 
     let sql = "UPDATE visitors SET leave_time = ? WHERE id = ?";
     const timestamp = new Date();
-    
-    let sql_params = [timestamp,req.query.id];
+
+    let sql_params = [timestamp, req.query.id];
     await database.base(sql, sql_params, (result) => {
         res.status(200).end()
     });
@@ -66,7 +122,7 @@ exports.get = async (req, res) => {
             res.send({});
             return; // 确保函数在这里返回，避免进一步执行
         }
-        res.send({...response[0], uuid});
+        res.send({ ...response[0], uuid });
     })
 }
 
@@ -87,7 +143,7 @@ function getClientIp(req) {
 function getClientInfo(req) {
     try {
         const ip = getClientIp(req)
-        console.log("来自：", ip , "的访问.")
+        console.log("来自：", ip, "的访问.")
         const query = new IP2Region();
         const info = query.search(ip);
         if (typeof info === 'object') {
@@ -99,3 +155,5 @@ function getClientInfo(req) {
         console.log("Error in getClientInfo Function:\n", err)
     }
 }
+
+

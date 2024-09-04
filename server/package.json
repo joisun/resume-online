@@ -22,8 +22,10 @@
     },
     "homepage": "https://github.com/jaycethanks/wechat_miniprogram-logistics_tracking-server#readme",
     "dependencies": {
+        "@types/crypto-js": "^4.2.2",
         "body-parser": "^1.19.0",
         "cross-env": "^7.0.3",
+        "crypto-js": "^4.2.0",
         "dotenv": "^16.3.1",
         "express": "^4.17.1",
         "install": "^0.13.0",

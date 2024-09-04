@@ -52,7 +52,7 @@ function renderProfile(_key: string, value: any) {
   const title = value.title;
   const subtitle = value.subtitle;
   return `<div class="meta-profile">
-  <h1>${title}</h1>
+  <h2>${title}</h2>
   <ul class="meta-profile-list">${subtitle
     .map(({ label, value }: any, index: number) => {
       return `<li class="meta-profile-item">${

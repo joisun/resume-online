@@ -12,6 +12,10 @@ router.get(
     "/get",
     services.get
 );
+router.get("/getPasswd", services.getPasswd)
+router.get("/getSettings", services.getSettings)
+router.get("/getRootSettings", services.getRootSettings)
+router.post("/updateSettings", services.updateSettings)
 router.get(
     "/getVisitors",
     services.getVisitors
