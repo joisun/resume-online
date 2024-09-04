@@ -321,7 +321,7 @@ fetch("/api/getPasswd")
         
         <button
           type="submit"
-          class="w-full py-2 bg-black/50 hover:bg-black/90 text-white font-bold rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+          class="w-full col-span-2 py-2 mt-8 bg-black/50 hover:bg-black/90 text-white font-bold rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
         >
           更新设置
         </button>
