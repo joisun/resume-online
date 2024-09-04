@@ -29,8 +29,28 @@ exports.getVisitors = async (req, res) => {
 
 }
 exports.updateSettings = async function (req, res) {
-    let sql = "UPDATE root SET updated_at=?, ADMIN_PASSWD=?, PASSWD=?, PASSINPUTPAGE_BG=?, PASSWD_INPUT_LABEL=?, SUCCESS_TITLE=?, SUCCESS_CONTENT=?, ERROR_TITLE=?, ERROR_CONTENT=?;";
+    // 更新 SQL 语句，包括新字段
+    let sql = `
+        UPDATE root 
+        SET 
+            updated_at=?, 
+            ADMIN_PASSWD=?, 
+            PASSWD=?, 
+            PASSINPUTPAGE_BG=?, 
+            PASSWD_INPUT_LABEL=?, 
+            SUCCESS_TITLE=?, 
+            SUCCESS_CONTENT=?, 
+            ERROR_TITLE=?, 
+            ERROR_CONTENT=?, 
+            FONT_FAMILY=?, 
+            FONT_WEIGHT=?, 
+            THEME=?, 
+            DISABLE_TRANSITION=?
+    `;
+
     const timestamp = new Date();
+
+    // 从请求体中提取数据
     const {
         ADMIN_PASSWD,
         PASSWD,
@@ -40,8 +60,15 @@ exports.updateSettings = async function (req, res) {
         SUCCESS_CONTENT,
         ERROR_TITLE,
         ERROR_CONTENT,
-    } = req.body
-    let sql_params = [timestamp,
+        FONT_FAMILY,
+        FONT_WEIGHT,
+        THEME,
+        DISABLE_TRANSITION
+    } = req.body;
+
+    // 更新参数列表，包含新字段
+    let sql_params = [
+        timestamp,
         decryptData(ADMIN_PASSWD),
         decryptData(PASSWD),
         PASSINPUTPAGE_BG,
@@ -49,11 +76,26 @@ exports.updateSettings = async function (req, res) {
         SUCCESS_TITLE,
         SUCCESS_CONTENT,
         ERROR_TITLE,
-        ERROR_CONTENT,];
-    await database.base(sql, sql_params, (result) => {
-        res.status(200).end()
-    });
+        ERROR_CONTENT,
+        FONT_FAMILY,
+        FONT_WEIGHT,
+        THEME,
+        DISABLE_TRANSITION
+    ];
+
+    try {
+        // 执行 SQL 查询
+        await database.base(sql, sql_params, (result) => {
+            res.status(200).end();
+        });
+    } catch (error) {
+        // 错误处理
+        console.error('Update Settings Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 }
+
+
 exports.getPasswd = async function (req, res) {
     let sql = "SELECT ADMIN_PASSWD FROM online_resume.root;"
     let sql_params = [];
@@ -63,7 +105,7 @@ exports.getPasswd = async function (req, res) {
     });
 }
 exports.getSettings = async function (req, res) {
-    let sql = "SELECT PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT FROM online_resume.root;"
+    let sql = "SELECT PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT, FONT_FAMILY, FONT_WEIGHT, THEME, DISABLE_TRANSITION FROM online_resume.root;"
     let sql_params = [];
     await database.base(sql, sql_params, (result) => {
         let response = JSON.parse(JSON.stringify(result));
@@ -71,7 +113,7 @@ exports.getSettings = async function (req, res) {
     });
 }
 exports.getRootSettings = async function (req, res) {
-    let sql = "SELECT created_at, updated_at, ADMIN_PASSWD, PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT FROM online_resume.root;"
+    let sql = "SELECT created_at, updated_at, ADMIN_PASSWD, PASSWD, PASSINPUTPAGE_BG, PASSWD_INPUT_LABEL, SUCCESS_TITLE, SUCCESS_CONTENT, ERROR_TITLE, ERROR_CONTENT, FONT_FAMILY, FONT_WEIGHT, THEME, DISABLE_TRANSITION FROM online_resume.root;";
     let sql_params = [];
     await database.base(sql, sql_params, (result) => {
         let response = JSON.parse(JSON.stringify(result));

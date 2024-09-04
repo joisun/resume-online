@@ -13,7 +13,7 @@ onMounted(() => {
 const location = window.location.href
 </script>
 <template>
-  <div class="text-gray-400 top-64 right-60 fixed lg:flex flex-col gap-8 z-10 hidden ">
+  <div class="text-gray-400 bottom-20 right-20 fixed lg:flex flex-col gap-8 z-10 hidden ">
     <a class="flex justify-center items-center  link-button w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 hover:text-gray-50 transition-all "
       title="PDF打印下载" href="javascript:void(0)" v-print="{ id: 'printMe', popTitle: `在线简历地址：${location}` }">
       <span class="flex items-center">
@@ -27,7 +27,7 @@ const location = window.location.href
         </svg>
       </span>
     </a>
-    <a id="mobile-lookup" title="移动端查看"
+    <!-- <a id="mobile-lookup" title="移动端查看"
       class="flex justify-center items-center relative  link-button  w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 hover:text-gray-50 transition-all"
       href="javascript:void(0)">
       <span class="flex items-center ">
@@ -41,9 +41,8 @@ const location = window.location.href
       <div class="qr-code rounded-lg p-3 absolute  top-16  bg-white  flex flex-col items-center shadow-lg ">
         <div class="w-5 h-5 bg-white rotate-45 border absolute z-49 top-[-9px] border-b-0 border-r-0"></div>
         <canvas style="width:256px;height:256px" id="canvas" class="aspect-square"></canvas>
-        <!-- <img src="@/assets/qr.png" class="aspect-square" alt="" /> -->
       </div>
-    </a>
+    </a> -->
   </div>
 </template>
 <style>

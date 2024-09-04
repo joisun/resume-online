@@ -23,6 +23,10 @@ const formData = ref({
   SUCCESS_CONTENT: "密码正确!",
   ERROR_TITLE: "错误！",
   ERROR_CONTENT: "请验证密码输入!",
+  FONT_FAMILY: "font-sans",
+  FONT_WEIGHT: "font-normal",
+  THEME: "default",
+  DISABLE_TRANSITION: false,
 });
 
 async function fetchInitialData() {
@@ -105,9 +109,9 @@ fetch("/api/getPasswd")
     v-if="visible"
     class="min-h-screen flex items-center justify-center bg-black bg-opacity-90 p-6"
   >
-    <div class="max-w-xl w-full bg-gray-600/5 p-6 rounded-lg shadow-lg">
+    <div class="max-w-3xl w-full bg-gray-600/5 p-6 rounded-lg shadow-lg">
       <h2 class="text-2xl font-semibold text-gray-100 mb-4">更新设置</h2>
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="handleSubmit" class="grid grid-cols-2 gap-x-4">
         <div class="mb-4">
           <label
             for="adminPasswd"
@@ -231,6 +235,72 @@ fetch("/api/getPasswd")
             placeholder="请验证密码输入!"
             class="w-full px-3 py-2 bg-black/50 border border-gray-700/50 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 text-gray-200"
           />
+        </div>
+
+        <div class="mb-4">
+          <label
+            for="fontFamily"
+            class="block text-sm font-medium text-gray-300 mb-1"
+            >字体</label
+          >
+          <select
+            v-model="formData.FONT_FAMILY"
+            id="fontFamily"
+            class="w-full px-3 py-2 bg-black/50 border border-gray-700/50 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 text-gray-200"
+          >
+            <option value="font-mono">Mono</option>
+            <option value="font-sans">Sans</option>
+            <option value="font-serif">Serif</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label
+            for="fontWeight"
+            class="block text-sm font-medium text-gray-300 mb-1"
+            >字体粗细</label
+          >
+          <select
+            v-model="formData.FONT_WEIGHT"
+            id="fontWeight"
+            class="w-full px-3 py-2 bg-black/50 border border-gray-700/50 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 text-gray-200"
+          >
+            <option value="font-thin">Thin</option>
+            <option value="font-normal">Normal</option>
+            <option value="font-medium">Medium</option>
+            <option value="font-semibold">Semibold</option>
+            <option value="font-bold">Bold</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label
+            for="theme"
+            class="block text-sm font-medium text-gray-300 mb-1"
+            >主题</label
+          >
+          <select
+            v-model="formData.THEME"
+            id="theme"
+            class="w-full px-3 py-2 bg-black/50 border border-gray-700/50 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 text-gray-200"
+          >
+            <option value="default">Default</option>
+            <!-- 可以在这里添加更多主题选项 -->
+          </select>
+        </div>
+
+        <div class="mb-4 flex items-center">
+          <input
+            v-model="formData.DISABLE_TRANSITION"
+            id="disableTransition"
+            type="checkbox"
+            class="mr-2"
+          />
+          <label
+            for="disableTransition"
+            class="block text-sm font-medium text-gray-300"
+            >禁用过渡动画（禁用简历页面，的简历蒙层过渡效果）</label
+          >
         </div>
 
         <button

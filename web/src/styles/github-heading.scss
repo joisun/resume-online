@@ -1,4 +1,4 @@
-.githubHeadling-theme{
+.custom-default-theme{
   :root {
     --side-bar-bg-color: #fafafa;
     --control-text-color: #777;
@@ -58,10 +58,11 @@
     position: relative;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.4;
     cursor: text;
   }
+ 
   /* h1:hover a.anchor,
   h2:hover a.anchor,
   h3:hover a.anchor,
@@ -207,14 +208,16 @@
     margin: 0 0;
   }
   hr {
-    height: 2px;
+    height: 0px;
     padding: 0;
-    margin: 16px 0;
-    background-color: #e7e7e7;
+    margin: 2em 0;
     border: 0 none;
+    border-bottom: 1px solid #e7e7e7;
     overflow: hidden;
     box-sizing: content-box;
   }
+
+
   
   li p.first {
     display: inline-block;

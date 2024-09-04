@@ -10,6 +10,7 @@ import { computed, nextTick, onMounted, reactive, ref } from "vue";
 import OperationSet from "./components/OperationSet.vue";
 import { watch } from "vue";
 import { decryptData } from "@/utils";
+import headingRender from "@/mdPlugins/headingRender";
 
 const Settings = reactive({
   PASSWD: "",
@@ -19,13 +20,16 @@ const Settings = reactive({
   ERROR_TITLE: "",
   ERROR_CONTENT: "",
   PASSINPUTPAGE_BG: "circuit-board",
+  FONT_FAMILY: "",
+  FONT_WEIGHT: "",
+  DISABLE_TRANSITION: 0,
+  THEME: "default",
 });
 const mdPreviewRef = ref<HTMLElement | null>(null);
 const scrollElement = document.documentElement;
 const state = reactive({
   text: "",
   passwd: "",
-  theme: "githubHeadling",
 });
 const visible = ref(false);
 
@@ -143,6 +147,10 @@ fetch("/api/getSettings")
       ERROR_TITLE,
       ERROR_CONTENT,
       PASSINPUTPAGE_BG,
+      FONT_FAMILY,
+      FONT_WEIGHT,
+      DISABLE_TRANSITION,
+      THEME,
     } = data;
 
     Settings.PASSWD = decryptData(PASSWD);
@@ -152,6 +160,14 @@ fetch("/api/getSettings")
     Settings.ERROR_TITLE = ERROR_TITLE;
     Settings.ERROR_CONTENT = ERROR_CONTENT;
     Settings.PASSINPUTPAGE_BG = PASSINPUTPAGE_BG;
+    Settings.FONT_FAMILY = FONT_FAMILY;
+    Settings.FONT_WEIGHT = FONT_WEIGHT;
+    Settings.DISABLE_TRANSITION = DISABLE_TRANSITION;
+    Settings.THEME = THEME;
+
+    if (Settings.PASSWD.trim() === "") {
+      visible.value = true;
+    }
   })
   .catch((error) => {
     console.error("Fetch error:", error);
@@ -181,12 +197,16 @@ watch(mdPreviewRef, () => {
       <MdPreview
         ref="mdPreviewRef"
         class="md-preview border border-red-700"
+        :class="[Settings.FONT_FAMILY, Settings.FONT_WEIGHT]"
         editorId="bind-md-log-and-preview"
         id="printMe"
-        :previewTheme="state.theme"
+        :previewTheme="Settings.THEME === 'default' ? 'custom-default' : Settings.THEME || 'custom-default'"
         v-model="state.text"
       />
-      <div class="fade-away loading-mask  absolute inset-0 bg-gradient-to-t from-white from-95%"></div>
+      <div
+        v-if="Settings.DISABLE_TRANSITION === 0 ? true : false"
+        class="fade-away loading-mask absolute inset-0 bg-gradient-to-t from-white from-95%"
+      ></div>
     </main>
 
     <footer class="text-gray-500 text-center whitespace-nowrap my-4 text-sm">
@@ -245,16 +265,16 @@ watch(mdPreviewRef, () => {
   }
 }
 
-.fade-away{
+.fade-away {
   animation: fade-away 6s forwards;
   transform: translateY(100%);
 }
 @keyframes fade-away {
-  from{
+  from {
     transform: translateY(-10%);
-  }to{
+  }
+  to {
     transform: translateY(100%);
   }
-  
 }
 </style>
