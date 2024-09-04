@@ -8,12 +8,5 @@
     "sync-gitee": "git push gitee main:main"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "js-yaml": "^4.1.0",
-    "markdown-it-front-matter": "^0.2.4"
-  },
-  "devDependencies": {
-    "@types/js-yaml": "^4.0.9"
-  }
+  "license": "ISC"
 }

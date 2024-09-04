@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { decryptData, encryptData } from "@/utils";
-import { ref, onMounted, computed } from "vue";
 import { notify } from "notiwind";
+import { computed, onMounted, ref } from "vue";
 const { VITE_ROOT_PASSWD } = import.meta.env;
 
 let passwdInput = ref("");

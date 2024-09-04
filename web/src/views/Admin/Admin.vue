@@ -51,6 +51,7 @@ const handleSave = () => {
     },
     body: JSON.stringify({
       context: text.value,
+      created_at : new Date()
     }),
   })
     .then((response) => {

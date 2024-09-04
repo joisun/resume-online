@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import metaRender from "@/mdPlugins/metaRender";
 import "@/styles/github-heading.scss";
+import { decryptData } from "@/utils";
 import mdfm from "markdown-it-front-matter";
 import { MdCatalog, MdPreview, config } from "md-editor-v3";
 import "md-editor-v3/lib/preview.css";
 import { notify } from "notiwind";
 import Qrcode from "qrcode";
-import { computed, nextTick, onMounted, reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
 import OperationSet from "./components/OperationSet.vue";
-import { watch } from "vue";
-import { decryptData } from "@/utils";
-import headingRender from "@/mdPlugins/headingRender";
 
 const Settings = reactive({
   PASSWD: "",
